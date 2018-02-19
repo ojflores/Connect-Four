@@ -20,6 +20,9 @@ public:
 
 		//starts the game
 		void start();
+		
+		//checks if its a valid move
+		bool valid_move(int);
 };
 
 
