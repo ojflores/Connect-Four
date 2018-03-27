@@ -1,11 +1,32 @@
 #include "board.h"
+#define MAX_MOVES 58
 
 Board::Board() {};
+
+bool win(int turn){
+	int counter = 0;
+	string piece;
+	if(turn % 2 == 0){
+		piece = " X ";
+	}
+	else{
+		piece = " O ";
+	}
+	while(counter < turn-2){
+		//got bored and wrote this in
+		//left off here, erase that incrementation, it does nothing
+		counter++;
+	}
+	
+	
+	return false;
+}
 
 void Board::ini_drawBoard(){
 	int i;
 	for(i = 0; i < BOARD_SIZE; i++){
 		the_board[i] = " - ";
+		moves_made[i] = 0;
 		cout << the_board[i];
 		if((i+1) % 7 == 0){
 			cout << "\n";
@@ -63,6 +84,9 @@ void Board::start(){
 			move -= 7;
 			cout << move << endl;
 			the_board[move] = " X ";
+			//keeps track of the moves made to try and make win function a little more efficient
+			moves_made[turn - 2] = move;
+			//cout << "these are the moves" << moves_made[turn - 2] << endl;
 			draw_board();
 		}
 		else{
@@ -84,8 +108,11 @@ void Board::start(){
 			move -= 7;
 			cout << move << endl;
 			the_board[move] = " O ";
+			//keeps track of the moves made to try and make win function a little more efficient
+			moves_made[turn - 2] = move;
+			//cout << "these are the moves" << moves_made[turn - 2] << endl;
 			draw_board();
 		}
 		turn++;
-	}while(turn < 58);
+	}while(turn < MAX_MOVES);
 }
