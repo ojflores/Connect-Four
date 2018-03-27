@@ -39,12 +39,20 @@ bool Board::valid_move(int number){
 void Board::start(){
 	int move = 0;
 	int turn = 2;
+	int weight[7] = {0, 0, 0, 0, 0, 0, 0};
 	Player A("X");
 	Player B("O");
 	do{
 		if(turn % 2 == 0){
 			//subtracts 1 to because of array offset
 			move = A.get_move() - 1;
+			weight[move] += 1;
+			cout << weight[move] << endl;
+			//checks if you have too many pieces in one row
+			while(weight[move] > 8){
+				move = A.get_move() - 1;
+				cout << "the row you have selected is full\n";
+			}
 			while(valid_move(move)){
 				move += 7;
 				if(move >= 56){
@@ -60,6 +68,13 @@ void Board::start(){
 		else{
 			//subtracts 1 to because of array offset
 			move = B.get_move() - 1;
+			weight[move] += 1;
+			cout << weight[move] << endl;
+			//checks if you have too many pieces in one row
+			while(weight[move] > 8){
+				move = A.get_move() - 1;
+				cout << "the row you have selected is full\n";
+			}
 			while(valid_move(move)){
 				move += 7;
 				if(move >= 56){
@@ -72,5 +87,5 @@ void Board::start(){
 			draw_board();
 		}
 		turn++;
-	}while(turn < 22);
+	}while(turn < 58);
 }
